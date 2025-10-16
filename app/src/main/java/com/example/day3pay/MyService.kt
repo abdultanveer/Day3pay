@@ -25,6 +25,7 @@ class MyService : Service() {
         var dataReceived = intent?.getStringExtra("url")
         Log.d(TAG,"downloading  from --"+dataReceived)
         mediaPlayer.start()
+        //stopSelf()
         return START_STICKY
     }
 

@@ -32,22 +32,25 @@ lateinit var additionService: AdditionService
     }
 
     fun handleStop(view: View) {
-        var sIntent = Intent(this,MyService::class.java)
-        stopService(sIntent)
+        var bServiceIntent = Intent(this,AdditionService::class.java)
+        unbindService(serviceConnection)
+
+//        var sIntent = Intent(this,MyService::class.java)
+//        stopService(sIntent)
     }
 
-    fun signContractService(view: View) {
+    fun signContractService(view: View) {  //step -1
         var bServiceIntent = Intent(this,AdditionService::class.java)
         //startService(sIntent) //setting up cateringservice--
         bindService(bServiceIntent,serviceConnection, BIND_AUTO_CREATE)  //connecting to existing service
     }
 
-    var serviceConnection:ServiceConnection = object : ServiceConnection {
+    var serviceConnection:ServiceConnection = object : ServiceConnection {  ////step 8
         override fun onServiceConnected(name: ComponentName?, lbinder: IBinder?) {
             //additionService = AdditionService()
             // im not going to instantiate this service
             //using this lbinder i can pull an instance  of  an already running AdditonnSErvice
-            val binder = lbinder as AdditionService.LocalBinder
+            val binder = lbinder as AdditionService.LocalBinder //step 8a
             additionService = binder.getService()
 
             var result = additionService.add2nos(10,20)

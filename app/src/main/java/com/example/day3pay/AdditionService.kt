@@ -5,22 +5,31 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 
-class AdditionService : Service() {
-    private val lbinder = LocalBinder() //binder =  a  pipe b/w activity & service
+class AdditionService : Service() {   //step 2
+    private val lbinder = LocalBinder() ////step 5
+    //binder =  a  pipe b/w activity & service
 
-    fun add2nos(a:Int,b:Int):Int{
+    fun add2nos(a:Int,b:Int):Int{ //step 3
         return a + b
     }
 
-    fun  getFootballScore():String{
+    fun  getFootballScore():String{//step 3a
         return "latest score is"+3
     }
 
     override fun onBind(intent: Intent): IBinder {
-      return  lbinder
+      return  lbinder ////step 6
     }
 
-    inner class LocalBinder : Binder() {
+    override fun onUnbind(intent: Intent?): Boolean {
+        return super.onUnbind(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    inner class LocalBinder : Binder() {//step 4
         // Return this instance of LocalService so clients can call public methods.
         fun getService(): AdditionService = this@AdditionService
     }
