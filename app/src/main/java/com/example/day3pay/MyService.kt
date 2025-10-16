@@ -6,6 +6,10 @@ import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
 
+
+//standalone vs bound service
+//foreground [user  aware--dowloading] vs background [anndroid 8 no bg service]
+//local vs remote service [runs in a diff app]
 class MyService : Service() {
     val mediaPlayer = MediaPlayer.create(this,R.raw.music)
 

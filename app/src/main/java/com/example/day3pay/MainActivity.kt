@@ -1,7 +1,10 @@
 package com.example.day3pay
 
+import android.content.ComponentName
 import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -10,10 +13,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.math.sin
 
-//mainActivity  = client and MyServices is serving
+//mainActivity  = client and MyServices is serving music
 class MainActivity : AppCompatActivity() {
     lateinit var mainTv:TextView
-
+lateinit var additionService: AdditionService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,5 +34,28 @@ class MainActivity : AppCompatActivity() {
     fun handleStop(view: View) {
         var sIntent = Intent(this,MyService::class.java)
         stopService(sIntent)
+    }
+
+    fun signContractService(view: View) {
+        var bServiceIntent = Intent(this,AdditionService::class.java)
+        //startService(sIntent) //setting up cateringservice--
+        bindService(bServiceIntent,serviceConnection, BIND_AUTO_CREATE)  //connecting to existing service
+    }
+
+    var serviceConnection:ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, lbinder: IBinder?) {
+            //additionService = AdditionService()
+            // im not going to instantiate this service
+            //using this lbinder i can pull an instance  of  an already running AdditonnSErvice
+            val binder = lbinder as AdditionService.LocalBinder
+            additionService = binder.getService()
+
+            var result = additionService.add2nos(10,20)
+            mainTv.setText("sum is $result and the score is "+additionService.getFootballScore())
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            TODO("Not yet implemented")
+        }
     }
 }
