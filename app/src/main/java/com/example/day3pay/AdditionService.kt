@@ -9,7 +9,7 @@ class AdditionService : Service() {   //step 2
     private val lbinder = LocalBinder() ////step 5
     //binder =  a  pipe b/w activity & service
 
- private val aidlBinder = object : IAddPaypal.Stub(){
+ private val aidlBinder = object : IAddPaypal.Stub(){ //----C
      override fun sum2nos(a: Int, b: Int): Int {
          return  a +  b
      }
@@ -24,7 +24,7 @@ class AdditionService : Service() {   //step 2
     }
 
     override fun onBind(intent: Intent): IBinder {
-      return  aidlBinder
+      return  aidlBinder   //---- D
         //lbinder ////step 6
     }
 

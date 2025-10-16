@@ -16,6 +16,7 @@
             android:name=".AdditionService"
             android:enabled="true"
             android:exported="true">
+           <!-- step E-->
             <intent-filter>
                 <action android:name="paypals.addition.2nos"/>
                 <category android:name="android.intent.category.DEFAULT"/>

@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    //aidl = android interface defination language
+    //aidl = android interface defination language----A
     buildFeatures{
         aidl = true
     }

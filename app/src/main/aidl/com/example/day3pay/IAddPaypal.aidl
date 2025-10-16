@@ -1,7 +1,7 @@
 // IAddPaypal.aidl
 package com.example.day3pay;
 
-// Declare any non-default types here with import statements
+// Declare any non-default types here with import statements  ---B
 
 interface IAddPaypal {
    int sum2nos(int a , int b);
