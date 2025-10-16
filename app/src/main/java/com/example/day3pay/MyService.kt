@@ -2,10 +2,12 @@ package com.example.day3pay
 
 import android.app.Service
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
 
 class MyService : Service() {
+    val mediaPlayer = MediaPlayer.create(this,R.raw.music)
 
     var  TAG = MyService::class.java.simpleName
 
@@ -18,11 +20,14 @@ class MyService : Service() {
          super.onStartCommand(intent, flags, startId)
         var dataReceived = intent?.getStringExtra("url")
         Log.d(TAG,"downloading  from --"+dataReceived)
+        mediaPlayer.start()
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        mediaPlayer.stop()
+        mediaPlayer.release()
         Log.d(TAG,"service got destroyed")
 
     }
