@@ -15,7 +15,12 @@
         <service
             android:name=".AdditionService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="paypals.addition.2nos"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
         <service
             android:name=".MyService"
             android:enabled="true"

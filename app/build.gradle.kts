@@ -16,6 +16,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    //aidl = android interface defination language
+    buildFeatures{
+        aidl = true
+    }
 
     buildTypes {
         release {
