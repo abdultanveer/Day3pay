@@ -11,13 +11,14 @@ import android.util.Log
 //foreground [user  aware--dowloading] vs background [anndroid 8 no bg service]
 //local vs remote service [runs in a diff app]
 class MyService : Service() {
-    val mediaPlayer = MediaPlayer.create(this,R.raw.music)
+  lateinit  var mediaPlayer:MediaPlayer
 
     var  TAG = MyService::class.java.simpleName
 
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG,"service got created")
+        mediaPlayer = MediaPlayer.create(this,R.raw.music)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
