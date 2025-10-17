@@ -16,11 +16,13 @@ import kotlin.math.sin
 //mainActivity  = client and MyServices is serving music
 class MainActivity : AppCompatActivity() {
     lateinit var mainTv:TextView
-lateinit var additionService: AdditionService
+    var  count = 0  //server-db
+    lateinit var additionService: AdditionService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTv = findViewById(R.id.tvMain)
+        mainTv.setText(""+count)
 
     }
 
@@ -60,5 +62,10 @@ lateinit var additionService: AdditionService
         override fun onServiceDisconnected(name: ComponentName?) {
             TODO("Not yet implemented")
         }
+    }
+
+    fun incrementCount(view: View) {
+        count++
+        mainTv.setText(""+count)
     }
 }
