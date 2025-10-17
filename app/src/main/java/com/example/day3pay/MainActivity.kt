@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mainTv = findViewById(R.id.tvMain)
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        mainTv.setText(""+mainViewModel.count)
+        //mainTv.setText(""+mainViewModel.count)
+        mainTv.setText(""+mainViewModel._seconds)
 
     }
 
@@ -67,7 +68,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun incrementCount(view: View) {
-        mainViewModel.incrementCounter()
-        mainTv.setText(""+mainViewModel.count)
+        //mainViewModel.incrementCounter()
+        mainViewModel.startTimer()
+        mainTv.setText(""+mainViewModel._seconds)
     }
 }
