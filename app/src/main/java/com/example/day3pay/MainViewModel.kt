@@ -27,6 +27,8 @@ class MainViewModel:ViewModel() {
         count++
     }
 
+    //suspendable and resumable functions
+    //coroutine -- eg launch  -- co operative routine[functions]
    // {result = 30}
     fun add(a:Int, b:Int):String{
         return "" + a + b
@@ -55,11 +57,11 @@ class MainViewModel:ViewModel() {
         }.start()
     }
 
-
+//launch = coroutine -- a suspenndable funnction
      fun getMarsPhotos() {
         GlobalScope.launch {
             val listResult = MarsApi.retrofitService.getPhotos()
-            Log.i(TAG,listResult.toString())
+            Log.i(TAG,listResult.get(0).imgSrc)
         }
     }
 
