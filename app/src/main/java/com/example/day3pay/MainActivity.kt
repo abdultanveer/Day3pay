@@ -80,8 +80,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun incrementCount(view: View) {
+        mainViewModel.getMarsPhotos()
         //mainViewModel.incrementCounter()
-        mainViewModel.startTimer()
+       // mainViewModel.startTimer()
        // mainTv.setText(""+mainViewModel._seconds)  //mainTv to observer
     }
 
