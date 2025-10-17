@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlin.math.sin
 
@@ -19,13 +20,24 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainTv:TextView
     lateinit var mainViewModel: MainViewModel
     lateinit var additionService: AdditionService
+
+    var secsObserverphno: Observer<Int> = object : Observer<Int> {
+        override fun onChanged(seconds: Int) {
+            //receiving the updates/notification
+            mainTv.setText(seconds.toString())
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTv = findViewById(R.id.tvMain)
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         //mainTv.setText(""+mainViewModel.count)
-        mainTv.setText(""+mainViewModel._seconds)
+        mainTv.setText(""+mainViewModel._seconds.value)
+        mainViewModel._seconds.observe(this, secsObserverphno);
+
 
     }
 
@@ -70,6 +82,8 @@ class MainActivity : AppCompatActivity() {
     fun incrementCount(view: View) {
         //mainViewModel.incrementCounter()
         mainViewModel.startTimer()
-        mainTv.setText(""+mainViewModel._seconds)
+       // mainTv.setText(""+mainViewModel._seconds)  //mainTv to observer
     }
+
+
 }
