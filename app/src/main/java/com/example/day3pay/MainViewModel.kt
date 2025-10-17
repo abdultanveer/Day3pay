@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.day3pay.network.MarsApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.http.GET
@@ -19,6 +20,7 @@ class MainViewModel:ViewModel() {
     lateinit var timer: CountDownTimer
 
     var _seconds = MutableLiveData<Int>()//observable data
+    var imgUrl  = MutableLiveData<String>()
 
     var TAG = MainViewModel::class.java.simpleName
     var  count = 10  //server-db
@@ -59,9 +61,11 @@ class MainViewModel:ViewModel() {
 
 //launch = coroutine -- a suspenndable funnction
      fun getMarsPhotos() {
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             val listResult = MarsApi.retrofitService.getPhotos()
+            imgUrl.value = listResult.get(0).imgSrc
             Log.i(TAG,listResult.get(0).imgSrc)
+
         }
     }
 

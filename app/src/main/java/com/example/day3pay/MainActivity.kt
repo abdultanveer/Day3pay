@@ -6,6 +6,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +14,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import kotlin.math.sin
 
 //mainActivity  = client and MyServices is serving music
 class MainActivity : AppCompatActivity() {
     lateinit var mainTv:TextView
+    lateinit var ivMars:ImageView
     lateinit var mainViewModel: MainViewModel
     lateinit var additionService: AdditionService
+
 
     var secsObserverphno: Observer<Int> = object : Observer<Int> {
         override fun onChanged(seconds: Int) {
@@ -28,15 +32,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    var imageUrlObserver: Observer<String> = object : Observer<String> {
+        override fun onChanged(url: String) {
+            //receiving the updates/notification
+            ivMars.load(url)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTv = findViewById(R.id.tvMain)
+        ivMars =  findViewById(R.id.marsIv)
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         //mainTv.setText(""+mainViewModel.count)
         mainTv.setText(""+mainViewModel._seconds.value)
         mainViewModel._seconds.observe(this, secsObserverphno);
+        mainViewModel.imgUrl.observe(this,imageUrlObserver)
 
 
     }
