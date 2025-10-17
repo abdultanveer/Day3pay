@@ -11,18 +11,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import kotlin.math.sin
 
 //mainActivity  = client and MyServices is serving music
 class MainActivity : AppCompatActivity() {
     lateinit var mainTv:TextView
-    var  count = 0  //server-db
+    lateinit var mainViewModel: MainViewModel
     lateinit var additionService: AdditionService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTv = findViewById(R.id.tvMain)
-        mainTv.setText(""+count)
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainTv.setText(""+mainViewModel.count)
 
     }
 
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun incrementCount(view: View) {
-        count++
-        mainTv.setText(""+count)
+        mainViewModel.incrementCounter()
+        mainTv.setText(""+mainViewModel.count)
     }
 }
