@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".ItemApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,14 +13,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Day3pay"
         tools:targetApi="31">
+        <activity
+            android:name=".DbActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".AdditionService"
             android:enabled="true"
             android:exported="true">
-           <!-- step E-->
+
+            <!-- step E -->
             <intent-filter>
-                <action android:name="paypals.addition.2nos"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="paypals.addition.2nos" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
         <service
@@ -30,11 +43,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
