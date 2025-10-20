@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.day3pay.database.Item
 import com.example.day3pay.database.ItemDao
@@ -23,6 +24,7 @@ class DbActivity : AppCompatActivity() {
     lateinit var dao: ItemDao
     lateinit var tvDb:TextView
 
+    private lateinit var viewModel: DbViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,9 @@ class DbActivity : AppCompatActivity() {
         qtyEt = findViewById(R.id.etQty)
         tvDb = findViewById(R.id.tvDb)
 
-        var  database = ItemRoomDatabase.getDatabase(this)
-        dao = database.itemDao()
+//        var  database = ItemRoomDatabase.getDatabase(this)
+//        dao = database.itemDao()
+        viewModel = ViewModelProvider(this)[DbViewModel::class.java]
 
 
 
@@ -45,18 +48,19 @@ class DbActivity : AppCompatActivity() {
         var price = priceEt.text.toString()
         var qty = qtyEt.text.toString()
         var item = Item(0,name,price.toDouble(),qty.toInt())
-        lifecycleScope.launch {
-            dao.insert(item)
-            dao.getItem(1)
-        }
+        viewModel.insert(item)
+//        lifecycleScope.launch {
+//            dao.insert(item)
+//            dao.getItem(1)
+//        }
 
     }
     fun getDb(view: View) {
-        lifecycleScope.launch (Dispatchers.Main){
 
-          var item =   dao.getItem(1)
-            tvDb.setText(item.first().toString())
+            viewModel.allItems.observe(this) { items ->
+                val displayText = items.joinToString("\n") { it.toString() }
+                tvDb.text = displayText
+            }
 
         }
     }
-}
