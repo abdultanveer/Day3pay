@@ -11,13 +11,12 @@
         android:id="@+id/etItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="27dp"
         android:ems="10"
         android:hint="enter item name"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/etPrice"
-        app:layout_constraintStart_toStartOf="@+id/etPrice"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/tvDb"
+        app:layout_constraintTop_toBottomOf="@+id/tvDb" />
 
     <EditText
         android:id="@+id/etPrice"
@@ -27,28 +26,28 @@
         android:ems="10"
         android:hint="price"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/etQty"
-        app:layout_constraintStart_toStartOf="@+id/etQty"
+        app:layout_constraintEnd_toEndOf="@+id/etItemName"
+        app:layout_constraintStart_toStartOf="@+id/etItemName"
         app:layout_constraintTop_toBottomOf="@+id/etItemName" />
 
     <EditText
         android:id="@+id/etQty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
         android:layout_marginTop="53dp"
         android:ems="10"
         android:hint="enter quantity"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/etPrice"
+        app:layout_constraintStart_toStartOf="@+id/etPrice"
         app:layout_constraintTop_toBottomOf="@+id/etPrice" />
 
     <Button
         android:id="@+id/btnSave"
-        android:onClick="saveDb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="57dp"
+        android:onClick="saveDb"
         android:text="save"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnget"
         app:layout_constraintStart_toStartOf="parent" />
@@ -59,8 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="74dp"
-        android:text="Get"
         android:onClick="getDb"
+        android:text="Get"
         app:layout_constraintStart_toEndOf="@+id/btnSave"
         app:layout_constraintTop_toBottomOf="@+id/etQty" />
 
@@ -68,9 +67,23 @@
         android:id="@+id/tvDb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="77dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="379dp"
         android:text="Database Result"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSave" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDb" />
 </androidx.constraintlayout.widget.ConstraintLayout>

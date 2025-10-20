@@ -1,8 +1,11 @@
 package com.example.day3pay
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ListView
+import android.widget.SimpleCursorAdapter
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +26,7 @@ class DbActivity : AppCompatActivity() {
     lateinit var qtyEt:EditText
     lateinit var dao: ItemDao
     lateinit var tvDb:TextView
+    lateinit var smsLv:ListView
 
     private lateinit var viewModel: DbViewModel
 
@@ -33,6 +37,7 @@ class DbActivity : AppCompatActivity() {
         priceEt = findViewById(R.id.etPrice)
         qtyEt = findViewById(R.id.etQty)
         tvDb = findViewById(R.id.tvDb)
+        smsLv = findViewById(R.id.listView)
 
 //        var  database = ItemRoomDatabase.getDatabase(this)
 //        dao = database.itemDao()
@@ -41,6 +46,23 @@ class DbActivity : AppCompatActivity() {
 
 
     }
+
+
+    override fun onStart() {
+        super.onStart()
+
+//        Uri uriSms = Uri.parse("content://sms/inbox");
+//        Cursor c = context.getContentResolver().query(uriSms, null,null,null,null);
+        var uriSms = Uri.parse("content://sms/inbox")
+        var cursor = contentResolver.query(uriSms,null,null,null,null)
+        var from =  arrayOf("body","address")
+        var to = intArrayOf(android.R.id.text1,android.R.id.text2)
+        var sadapter = SimpleCursorAdapter(this,android.R.layout.simple_list_item_2,cursor,from,to)
+        smsLv.adapter = sadapter
+    }
+
+
+//RUNTIME PERMISSION
 
     //you can't invoke a suspendable[insert fn] in a normal fn, u can innvoke it only in a coroutine/another suspend fn
     fun saveDb(view: View) {
