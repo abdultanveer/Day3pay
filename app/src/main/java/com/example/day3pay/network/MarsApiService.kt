@@ -20,7 +20,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 
-
+//suspendable fn -- atm q,
 
 interface MarsApiService {
 

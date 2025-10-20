@@ -41,8 +41,11 @@ class MainViewModel:ViewModel() {
     }
 
 
+//modularizing code --functions-- code more readable
+    //THREADS -- divide the code based on how much time each module/function takes
 
 
+    //each instruction takes 5ns
     fun startTimer(){
 
         timer = object :CountDownTimer(10_000,1_000){
@@ -61,8 +64,9 @@ class MainViewModel:ViewModel() {
 
 //launch = coroutine -- a suspenndable funnction
      fun getMarsPhotos() {
+//viewmodelscope
         GlobalScope.launch(Dispatchers.Main) {
-            val listResult = MarsApi.retrofitService.getPhotos()
+            val listResult = MarsApi.retrofitService.getPhotos()  //this might gtake  1 sec
             imgUrl.value = listResult.get(0).imgSrc
             Log.i(TAG,listResult.get(0).imgSrc)
 

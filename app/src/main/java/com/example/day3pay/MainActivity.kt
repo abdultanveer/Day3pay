@@ -14,7 +14,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import coil.load
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlin.math.sin
 
 //mainActivity  = client and MyServices is serving music
@@ -39,7 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // lifecycleScope.launch {  }  -- scope till activity dies
+    //GlobalScope.async {  }  //scope till app is termintated
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainTv = findViewById(R.id.tvMain)
