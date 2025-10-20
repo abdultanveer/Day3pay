@@ -3,6 +3,7 @@ package com.example.day3pay
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.day3pay.database.Item
 import com.example.day3pay.database.ItemDao
 import com.example.day3pay.database.ItemRoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class DbActivity : AppCompatActivity() {
@@ -18,6 +21,7 @@ class DbActivity : AppCompatActivity() {
     lateinit var priceEt:EditText
     lateinit var qtyEt:EditText
     lateinit var dao: ItemDao
+    lateinit var tvDb:TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +30,7 @@ class DbActivity : AppCompatActivity() {
         nameEt = findViewById(R.id.etItemName)
         priceEt = findViewById(R.id.etPrice)
         qtyEt = findViewById(R.id.etQty)
+        tvDb = findViewById(R.id.tvDb)
 
         var  database = ItemRoomDatabase.getDatabase(this)
         dao = database.itemDao()
@@ -42,8 +47,16 @@ class DbActivity : AppCompatActivity() {
         var item = Item(0,name,price.toDouble(),qty.toInt())
         lifecycleScope.launch {
             dao.insert(item)
+            dao.getItem(1)
         }
 
     }
-    fun getDb(view: View) {}
+    fun getDb(view: View) {
+        lifecycleScope.launch (Dispatchers.Main){
+
+          var item =   dao.getItem(1)
+            tvDb.setText(item.first().toString())
+
+        }
+    }
 }
